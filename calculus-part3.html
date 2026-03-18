@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calc Part 3 — Exam Drills 🔥</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0a14;--surface:#131020;--surface2:#1a1530;--border:#2a2545;--accent:#c084fc;--accent2:#fb923c;--accent3:#34d399;--accent4:#60a5fa;--text:#ede9fe;--text-dim:#8b83b0;--correct:#34d399;--wrong:#f87171;--streak:#fbbf24;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;}
+header{background:rgba(12,10,20,0.97);border-bottom:1px solid var(--border);padding:1.3rem 2rem;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);}
+.hrow{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+header h1{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+header p{color:var(--text-dim);font-size:0.79rem;margin-top:0.15rem;}
+.badges{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.bp{font-size:0.7rem;padding:0.22rem 0.65rem;border-radius:20px;font-family:'JetBrains Mono',monospace;font-weight:700;white-space:nowrap;}
+.bp-v{background:rgba(192,132,252,0.15);border:1px solid rgba(192,132,252,0.4);color:var(--accent);}
+.bp-o{background:rgba(251,146,60,0.15);border:1px solid rgba(251,146,60,0.4);color:var(--accent2);}
+.sbar{display:flex;align-items:center;gap:1rem;margin-top:0.7rem;}
+.pw{flex:1;background:var(--border);height:3px;border-radius:2px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width 0.4s;}
+.pl{font-size:0.69rem;color:var(--text-dim);}
+.tab-nav{display:flex;gap:0.3rem;padding:0.75rem 2rem;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.tab-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:0.38rem 0.85rem;border-radius:6px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:0.76rem;font-weight:500;white-space:nowrap;transition:all 0.2s;}
+.tab-btn:hover{border-color:var(--accent);color:var(--accent);}
+.tab-btn.active{background:var(--accent);border-color:var(--accent);color:#0c0a14;font-weight:700;}
+.content{max-width:940px;margin:0 auto;padding:2rem;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1.3rem;}
+.sc h2{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--accent);margin-bottom:0.8rem;}
+.sc h3{font-size:0.81rem;font-weight:700;color:var(--accent2);margin:1rem 0 0.45rem;text-transform:uppercase;letter-spacing:0.06em;}
+.concept{background:var(--surface2);border-left:3px solid var(--accent4);border-radius:0 10px 10px 0;padding:0.9rem 1.1rem;margin:0.65rem 0;font-size:0.86rem;line-height:1.75;}
+.formula{font-family:'JetBrains Mono',monospace;background:rgba(192,132,252,0.07);border:1px solid rgba(192,132,252,0.2);padding:0.45rem 0.9rem;border-radius:5px;margin:0.35rem 0;font-size:0.87rem;color:#d8b4fe;overflow-x:auto;}
+.tip{background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.2);border-radius:7px;padding:0.65rem 0.9rem;margin:0.65rem 0;font-size:0.82rem;color:#a7f3d0;}
+.tip::before{content:"💡 ";}
+.warn{background:rgba(251,146,60,0.07);border:1px solid rgba(251,146,60,0.2);border-radius:7px;padding:0.65rem 0.9rem;margin:0.65rem 0;font-size:0.82rem;color:#fed7aa;}
+.warn::before{content:"⚠️ ";}
+.ssec{font-family:'JetBrains Mono',monospace;font-size:0.71rem;color:var(--accent3);text-transform:uppercase;letter-spacing:0.08em;padding:0.28rem 0.75rem;background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.18);border-radius:4px;display:inline-block;margin:0.85rem 0 0.45rem;}
+.problem{background:var(--surface2);border:1px solid var(--border);border-radius:7px;margin-bottom:0.55rem;overflow:hidden;transition:border-color 0.2s;}
+.problem:hover{border-color:var(--accent);}
+.pq{padding:0.75rem 0.9rem;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:0.75rem;font-size:0.86rem;line-height:1.65;}
+.pq .num{font-family:'JetBrains Mono',monospace;color:var(--accent2);font-size:0.73rem;font-weight:700;min-width:1.9rem;padding-top:0.1rem;}
+.pq .txt{flex:1;}
+.chv{color:var(--text-dim);font-size:0.88rem;transition:transform 0.2s;min-width:1rem;text-align:center;}
+.problem.open .chv{transform:rotate(180deg);}
+.pa{display:none;padding:0.7rem 0.9rem 0.85rem 2.8rem;background:rgba(192,132,252,0.04);border-top:1px solid var(--border);font-size:0.83rem;line-height:1.8;}
+.pa .step{margin-bottom:0.28rem;}
+.pa .ans{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--correct);font-size:0.93rem;margin-top:0.45rem;background:rgba(52,211,153,0.08);padding:0.32rem 0.75rem;border-radius:4px;display:inline-block;}
+.problem.open .pa{display:block;}
+.tag{display:inline-block;font-size:0.64rem;padding:0.1rem 0.45rem;border-radius:4px;margin-right:0.25rem;font-family:'JetBrains Mono',monospace;}
+.tg{background:rgba(52,211,153,0.1);color:var(--accent3);border:1px solid rgba(52,211,153,0.22);}
+.tb{background:rgba(96,165,250,0.1);color:var(--accent4);border:1px solid rgba(96,165,250,0.22);}
+.ty{background:rgba(251,146,60,0.1);color:var(--accent2);border:1px solid rgba(251,146,60,0.22);}
+.tp{background:rgba(192,132,252,0.1);color:var(--accent);border:1px solid rgba(192,132,252,0.22);}
+.tr{background:rgba(248,113,113,0.1);color:#fca5a5;border:1px solid rgba(248,113,113,0.22);}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;margin:0.65rem 0;}
+th{background:var(--surface2);padding:0.48rem 0.7rem;text-align:left;color:var(--accent2);font-weight:600;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;}
+td{padding:0.48rem 0.7rem;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:var(--text);vertical-align:top;}
+tr:hover td{background:var(--surface2);}
+.fc-wrap{perspective:1100px;}
+.flashcard{width:100%;min-height:175px;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform 0.5s;border-radius:13px;margin-bottom:0.9rem;}
+.flashcard.flipped{transform:rotateY(180deg);}
+.card-front,.card-back{position:absolute;width:100%;min-height:175px;backface-visibility:hidden;border-radius:13px;display:flex;align-items:center;justify-content:center;padding:1.8rem;text-align:center;}
+.card-front{background:linear-gradient(135deg,#1a1530,#130f24);border:1px solid var(--accent);}
+.card-back{background:linear-gradient(135deg,#0f1a14,#0f0f20);border:1px solid var(--accent3);transform:rotateY(180deg);}
+.card-front .term{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--accent2);}
+.card-back .def{font-size:0.84rem;line-height:1.75;color:var(--text);font-family:'JetBrains Mono',monospace;white-space:pre-line;}
+.card-hint{font-size:0.66rem;color:var(--text-dim);margin-top:0.45rem;}
+.fc-nav{display:flex;justify-content:center;align-items:center;gap:0.9rem;margin-top:0.45rem;}
+.fc-nav button{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:0.38rem 0.95rem;border-radius:6px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.fc-nav button:hover{border-color:var(--accent);color:var(--accent);}
+.fc-count{font-size:0.78rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
+.qc{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:1.2rem;margin-bottom:0.9rem;}
+.qq{font-size:0.93rem;font-weight:500;margin-bottom:0.9rem;line-height:1.65;}
+.qopts{display:flex;flex-direction:column;gap:0.4rem;}
+.qopt{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.55rem 0.9rem;cursor:pointer;font-size:0.86rem;transition:all 0.2s;text-align:left;color:var(--text);}
+.qopt:hover:not(:disabled){border-color:var(--accent);background:rgba(192,132,252,0.08);}
+.qopt.correct{background:rgba(52,211,153,0.1);border-color:var(--correct);color:var(--correct);}
+.qopt.wrong{background:rgba(248,113,113,0.1);border-color:var(--wrong);color:var(--wrong);}
+.qopt:disabled{cursor:default;}
+.qfb{margin-top:0.65rem;font-size:0.81rem;padding:0.48rem 0.8rem;border-radius:5px;display:none;}
+.qfb.show{display:block;}
+.qfb.correct{background:rgba(52,211,153,0.08);color:var(--correct);}
+.qfb.wrong{background:rgba(248,113,113,0.08);color:var(--wrong);}
+.filter-row{display:flex;gap:0.35rem;margin-bottom:0.9rem;flex-wrap:wrap;}
+.filter-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);padding:0.26rem 0.68rem;border-radius:20px;cursor:pointer;font-size:0.74rem;transition:all 0.2s;font-family:'Outfit',sans-serif;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(192,132,252,0.07);}
+.btn{background:var(--accent);color:#0c0a14;border:none;padding:0.58rem 1.25rem;border-radius:7px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:700;font-size:0.86rem;transition:all 0.2s;}
+.btn:hover{background:#d8b4fe;}
+.btn-o{background:transparent;border:1px solid var(--accent3);color:var(--accent3);padding:0.58rem 1.25rem;border-radius:7px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:500;font-size:0.86rem;transition:all 0.2s;}
+.btn-o:hover{background:rgba(52,211,153,0.1);}
+.qfinal{text-align:center;font-size:1.45rem;font-family:'Cormorant Garamond',serif;color:var(--accent2);margin:0.9rem 0;}
+.intro{background:linear-gradient(135deg,rgba(192,132,252,0.06),rgba(96,165,250,0.06));border:1px solid rgba(192,132,252,0.16);border-radius:11px;padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:0.86rem;line-height:1.75;color:var(--text-dim);}
+.intro strong{color:var(--accent3);}
+@media(max-width:600px){.content{padding:1rem;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <div>
+      <h1>🔥 Differential Calculus — Part 3</h1>
+      <p>Exam Drills · Chain Rule Combos · Mixed Sets · Hard Problems</p>
+    </div>
+    <div class="badges">
+      <span class="bp bp-v">PART 3 / 3</span>
+      <span class="bp bp-o" id="streakBadge">🔥 Streak: 0</span>
+    </div>
+  </div>
+  <div class="sbar">
+    <div class="pw"><div class="pf" id="pf"></div></div>
+    <div class="pl" id="pl">0 solved</div>
+  </div>
+</header>
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab(0)">⚡ Limits Gauntlet</button>
+  <button class="tab-btn" onclick="switchTab(1)">🔗 Chain Rule Combos</button>
+  <button class="tab-btn" onclick="switchTab(2)">📐 Derivative Drills</button>
+  <button class="tab-btn" onclick="switchTab(3)">🧩 Mixed Exam Sets</button>
+  <button class="tab-btn" onclick="switchTab(4)">💀 Hard Problems</button>
+  <button class="tab-btn" onclick="switchTab(5)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="switchTab(6)">🧪 Quiz Mode</button>
+</nav>
+<div class="content">
+
+<!-- TAB 0: LIMITS -->
+<div class="tab-panel active" id="tab0">
+<div class="sc">
+<h2>⚡ Limits Gauntlet</h2>
+<div class="intro">Every limit technique drilled in sequence — <strong>direct substitution, factoring, rationalization, trig limits, L'Hôpital's Rule, limits at infinity, one-sided limits</strong>. Do all sections until automatic.</div>
+<div class="concept">
+<table>
+<tr><th>Technique</th><th>When to Use</th><th>Key Formula/Trick</th></tr>
+<tr><td>Direct Sub</td><td>Always try first</td><td>lim f(x) = f(a)</td></tr>
+<tr><td>Factor/Cancel</td><td>0/0, polynomial</td><td>Factor, cancel, substitute</td></tr>
+<tr><td>Rationalize</td><td>0/0 with radicals</td><td>Multiply by conjugate</td></tr>
+<tr><td>Trig Limits</td><td>sin x/x form</td><td>lim(sinx/x)=1, lim(1-cosx)/x=0</td></tr>
+<tr><td>L'Hopital</td><td>0/0 or inf/inf</td><td>lim f/g = lim f'/g'</td></tr>
+<tr><td>Infinity</td><td>x to +/-inf</td><td>Divide by highest power of x</td></tr>
+</table>
+</div>
+<div class="ssec">Section A — Direct Substitution</div>
+<div id="limA"></div>
+<div class="ssec">Section B — Factoring and Canceling</div>
+<div id="limB"></div>
+<div class="ssec">Section C — Rationalization</div>
+<div id="limC"></div>
+<div class="ssec">Section D — Trig Limits</div>
+<div id="limD"></div>
+<div class="ssec">Section E — L'Hopital's Rule</div>
+<div id="limE"></div>
+<div class="ssec">Section F — Limits at Infinity</div>
+<div id="limF"></div>
+<div class="ssec">Section G — One-Sided and Piecewise</div>
+<div id="limG"></div>
+</div>
+</div>
+
+<!-- TAB 1: CHAIN RULE -->
+<div class="tab-panel" id="tab1">
+<div class="sc">
+<h2>🔗 Chain Rule Combos</h2>
+<div class="intro">The chain rule is the most used rule in calculus. Master it in combination with <strong>product rule, quotient rule, trig, exp, and log</strong>. These are layered — identify all the rules before you start.</div>
+<div class="concept">
+<div class="formula">Chain Rule: d/dx[f(g(x))] = f'(g(x)) · g'(x)</div>
+<div class="tip">Work OUTSIDE IN. Each layer needs its own derivative multiplied. For triple chains: d/dx[f(g(h(x)))] = f'(g(h(x))) · g'(h(x)) · h'(x)</div>
+</div>
+<div class="ssec">Section A — Chain + Power Rule</div>
+<div id="chainA"></div>
+<div class="ssec">Section B — Chain + Trig</div>
+<div id="chainB"></div>
+<div class="ssec">Section C — Chain + Exp and Log</div>
+<div id="chainC"></div>
+<div class="ssec">Section D — Chain + Product Rule</div>
+<div id="chainD"></div>
+<div class="ssec">Section E — Chain + Quotient Rule</div>
+<div id="chainE"></div>
+<div class="ssec">Section F — Triple Chain (3 Layers)</div>
+<div id="chainF"></div>
+</div>
+</div>
+
+<!-- TAB 2: DERIVATIVE DRILLS -->
+<div class="tab-panel" id="tab2">
+<div class="sc">
+<h2>📐 Derivative Rules Drill</h2>
+<div class="intro">Pure rule mastery — <strong>power, product, quotient, trig, inverse trig, exp/log, higher-order derivatives</strong>. No chain rule needed for most. Just fast, clean execution.</div>
+<div class="ssec">Section A — Power and Polynomial</div>
+<div id="drvA"></div>
+<div class="ssec">Section B — Product Rule</div>
+<div id="drvB"></div>
+<div class="ssec">Section C — Quotient Rule</div>
+<div id="drvC"></div>
+<div class="ssec">Section D — Trig Derivatives</div>
+<div id="drvD"></div>
+<div class="ssec">Section E — Inverse Trig Derivatives</div>
+<div id="drvE"></div>
+<div class="ssec">Section F — Exponential and Log</div>
+<div id="drvF"></div>
+<div class="ssec">Section G — Higher-Order Derivatives</div>
+<div id="drvG"></div>
+</div>
+</div>
+
+<!-- TAB 3: MIXED EXAM -->
+<div class="tab-panel" id="tab3">
+<div class="sc">
+<h2>🧩 Mixed Exam Sets</h2>
+<div class="intro">No topic labels — just like a real exam. <strong>Identify the correct technique yourself</strong>, then execute. Four sets of increasing difficulty.</div>
+<div class="ssec">Mixed Set A — Limits and Basic Derivatives</div>
+<div id="mixA"></div>
+<div class="ssec">Mixed Set B — Derivatives and Applications</div>
+<div id="mixB"></div>
+<div class="ssec">Mixed Set C — Implicit, Tangents, Optimization</div>
+<div id="mixC"></div>
+<div class="ssec">Mixed Set D — Full Exam Simulation (Hardest)</div>
+<div id="mixD"></div>
+</div>
+</div>
+
+<!-- TAB 4: HARD PROBLEMS -->
+<div class="tab-panel" id="tab4">
+<div class="sc">
+<h2>💀 Hard Problems</h2>
+<div class="intro">Multi-step, non-obvious, or tricky problems. <strong>If you can do these cleanly, you're exam-ready.</strong> Don't give up — read the solution carefully when stuck.</div>
+<div class="ssec">Section A — Nasty Derivatives</div>
+<div id="hardA"></div>
+<div class="ssec">Section B — Tricky Limits</div>
+<div id="hardB"></div>
+<div class="ssec">Section C — Hard Implicit and Log Diff</div>
+<div id="hardC"></div>
+<div class="ssec">Section D — Hard Applications</div>
+<div id="hardD"></div>
+</div>
+</div>
+
+<!-- TAB 5: FLASHCARDS -->
+<div class="tab-panel" id="tab5">
+<div class="sc">
+<h2>🃏 Part 3 Flashcards</h2>
+<p style="color:var(--text-dim);font-size:0.86rem;margin-bottom:1.1rem">Click to flip. Use filters to drill by topic.</p>
+<div class="filter-row" id="fcFilter">
+  <button class="filter-btn active" onclick="filterFC('all',this)">All</button>
+  <button class="filter-btn" onclick="filterFC('limits',this)">Limits</button>
+  <button class="filter-btn" onclick="filterFC('chain',this)">Chain Rule</button>
+  <button class="filter-btn" onclick="filterFC('rules',this)">Deriv Rules</button>
+  <button class="filter-btn" onclick="filterFC('hard',this)">Hard Facts</button>
+</div>
+<div class="fc-wrap">
+  <div class="flashcard" id="fc" onclick="flipFC()">
+    <div class="card-front"><div><div class="term" id="fcTerm">Loading...</div><div class="card-hint">👆 click to flip</div></div></div>
+    <div class="card-back"><div class="def" id="fcDef">...</div></div>
+  </div>
+</div>
+<div class="fc-nav">
+  <button onclick="prevFC()">← Prev</button>
+  <span class="fc-count" id="fcCount">1 / 1</span>
+  <button onclick="nextFC()">Next →</button>
+</div>
+<div style="margin-top:1rem;text-align:center;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap">
+  <button class="btn-o" onclick="shuffleFC()">🔀 Shuffle</button>
+  <button class="btn" onclick="resetFC()">↺ Reset</button>
+</div>
+</div>
+</div>
+
+<!-- TAB 6: QUIZ -->
+<div class="tab-panel" id="tab6">
+<div class="sc">
+<h2>🧪 Quiz Mode — Part 3</h2>
+<p style="color:var(--text-dim);font-size:0.86rem;margin-bottom:0.9rem">10 questions per round. Select topic and start!</p>
+<div class="filter-row">
+  <button class="filter-btn active" onclick="setQT('all',this)">All Topics</button>
+  <button class="filter-btn" onclick="setQT('limits',this)">Limits</button>
+  <button class="filter-btn" onclick="setQT('chain',this)">Chain Rule</button>
+  <button class="filter-btn" onclick="setQT('deriv',this)">Derivatives</button>
+  <button class="filter-btn" onclick="setQT('apps',this)">Applications</button>
+</div>
+<button class="btn" onclick="startQuiz()" style="margin-bottom:1.4rem">▶ Start Quiz</button>
+<div id="qArea"></div>
+<div id="qResult" style="display:none;text-align:center;margin-top:1rem">
+  <div class="qfinal" id="qFinal"></div>
+  <button class="btn" onclick="startQuiz()">🔄 Try Again</button>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+var solved=0,streak=0;
+function trackProg(){var t=document.querySelectorAll('.problem').length,pct=t>0?(solved/t)*100:0;document.getElementById('pf').style.width=pct+'%';document.getElementById('pl').textContent=solved+' / '+t+' solved';document.getElementById('streakBadge').textContent='🔥 Streak: '+streak;}
+function toggleP(el){var p=el.parentElement,was=p.classList.contains('open');p.classList.toggle('open');if(!was){solved++;streak++;trackProg();}}
+function switchTab(i){document.querySelectorAll('.tab-panel').forEach(function(p,j){p.classList.toggle('active',j===i);});document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});if(i===5)updateFC();}
+function build(id,arr){var c=document.getElementById(id);if(!c)return;arr.forEach(function(p,i){var d=document.createElement('div');d.className='problem';d.innerHTML='<div class="pq" onclick="toggleP(this)"><span class="num">#'+(i+1)+'</span><span class="txt">'+p.q+'</span><span class="chv">▼</span></div><div class="pa">'+p.a+'</div>';c.appendChild(d);});trackProg();}
+
+// ---- LIMITS DATA ----
+var limA=[
+{q:"<span class='tag tg'>Direct</span> lim(x→3) [x² - 2x + 4]",a:"<div class='step'>Direct sub: 9 - 6 + 4</div><div class='ans'>= 7</div>"},
+{q:"<span class='tag tg'>Direct</span> lim(x→0) [sin x + cos x]",a:"<div class='step'>sin 0 + cos 0 = 0 + 1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tg'>Direct</span> lim(x→2) [x³ - 3x + 1]",a:"<div class='step'>8 - 6 + 1</div><div class='ans'>= 3</div>"},
+{q:"<span class='tag tg'>Direct</span> lim(x→π) [sin x]",a:"<div class='step'>sin π</div><div class='ans'>= 0</div>"},
+{q:"<span class='tag tg'>Direct</span> lim(x→1) [√(x² + 3)]",a:"<div class='step'>√(1+3) = √4</div><div class='ans'>= 2</div>"},
+{q:"<span class='tag tg'>Direct</span> lim(x→e) [ln x + x]",a:"<div class='step'>ln e + e = 1 + e</div><div class='ans'>= 1 + e</div>"},
+{q:"<span class='tag tg'>Direct</span> lim(x→0) [eˣ - 1 + x]",a:"<div class='step'>e⁰ - 1 + 0 = 1 - 1 + 0</div><div class='ans'>= 0</div>"},
+{q:"<span class='tag tg'>Direct</span> lim(x→π/4) [tan x]",a:"<div class='step'>tan(π/4)</div><div class='ans'>= 1</div>"},
+];
+var limB=[
+{q:"<span class='tag tb'>Factor</span> lim(x→3) [(x² - 9)/(x - 3)]",a:"<div class='step'>(x-3)(x+3)/(x-3) = x+3</div><div class='ans'>= 6</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→-2) [(x² + 3x + 2)/(x + 2)]",a:"<div class='step'>(x+2)(x+1)/(x+2) = x+1</div><div class='ans'>= -1</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→1) [(x³ - 1)/(x - 1)]",a:"<div class='step'>(x-1)(x²+x+1)/(x-1) = x²+x+1</div><div class='ans'>= 3</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(h→0) [(3+h)² - 9]/h",a:"<div class='step'>(9+6h+h²-9)/h = (6h+h²)/h = 6+h</div><div class='ans'>= 6</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→2) [(x² - 4)/(x² - 3x + 2)]",a:"<div class='step'>Num: (x-2)(x+2). Den: (x-1)(x-2). = (x+2)/(x-1)</div><div class='ans'>= 4/1 = 4</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→0) [(2x³ + 5x²)/x²]",a:"<div class='step'>x²(2x+5)/x² = 2x+5</div><div class='ans'>= 5</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→4) [(x² - 16)/(x - 4)]",a:"<div class='step'>(x-4)(x+4)/(x-4) = x+4</div><div class='ans'>= 8</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→-3) [(x² + x - 6)/(x + 3)]",a:"<div class='step'>(x+3)(x-2)/(x+3) = x-2</div><div class='ans'>= -5</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→2) [(x³ - 8)/(x - 2)]",a:"<div class='step'>(x-2)(x²+2x+4)/(x-2) = x²+2x+4</div><div class='ans'>= 4+4+4 = 12</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→5) [(x²-25)/(x²-3x-10)]",a:"<div class='step'>(x-5)(x+5) / (x-5)(x+2) = (x+5)/(x+2)</div><div class='ans'>= 10/7</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→0) [(x² + 3x)/x]",a:"<div class='step'>x(x+3)/x = x+3</div><div class='ans'>= 3</div>"},
+{q:"<span class='tag tb'>Factor</span> lim(x→1) [(x⁴ - 1)/(x - 1)]",a:"<div class='step'>(x²-1)(x²+1)/(x-1) = (x-1)(x+1)(x²+1)/(x-1) = (x+1)(x²+1)</div><div class='ans'>= 2·2 = 4</div>"},
+];
+var limC=[
+{q:"<span class='tag ty'>Rationalize</span> lim(x→0) [(√(x+4) - 2)/x]",a:"<div class='step'>Multiply by (√(x+4)+2): = (x+4-4)/(x(√(x+4)+2)) = 1/(√(x+4)+2)</div><div class='ans'>= 1/4</div>"},
+{q:"<span class='tag ty'>Rationalize</span> lim(x→9) [(√x - 3)/(x - 9)]",a:"<div class='step'>Multiply by (√x+3): = (x-9)/((x-9)(√x+3)) = 1/(√x+3)</div><div class='ans'>= 1/6</div>"},
+{q:"<span class='tag ty'>Rationalize</span> lim(x→0) [(√(1+x) - 1)/x]",a:"<div class='step'>Multiply by (√(1+x)+1): = x/(x(√(1+x)+1)) = 1/(√(1+x)+1)</div><div class='ans'>= 1/2</div>"},
+{q:"<span class='tag ty'>Rationalize</span> lim(x→4) [(2 - √x)/(4 - x)]",a:"<div class='step'>Multiply by (2+√x): = (4-x)/((4-x)(2+√x)) = 1/(2+√x)</div><div class='ans'>= 1/4</div>"},
+{q:"<span class='tag ty'>Rationalize</span> lim(x→1) [(√x - 1)/(x - 1)]",a:"<div class='step'>= (√x-1)/((√x-1)(√x+1)) = 1/(√x+1)</div><div class='ans'>= 1/2</div>"},
+{q:"<span class='tag ty'>Rationalize</span> lim(x→0) [(√(9+x) - 3)/x]",a:"<div class='step'>Multiply by (√(9+x)+3): = x/(x(√(9+x)+3)) = 1/(√(9+x)+3)</div><div class='ans'>= 1/6</div>"},
+{q:"<span class='tag ty'>Rationalize</span> lim(h→0) [(√(x+h) - √x)/h]",a:"<div class='step'>Multiply by (√(x+h)+√x): = h/(h(√(x+h)+√x)) = 1/(2√x)</div><div class='ans'>= 1/(2√x) — this is the derivative of √x!</div>"},
+{q:"<span class='tag ty'>Rationalize</span> lim(x→3) [(√(x+1) - 2)/(x - 3)]",a:"<div class='step'>Multiply conjugate: = (x+1-4)/((x-3)(√(x+1)+2)) = (x-3)/((x-3)(√(x+1)+2)) = 1/(√(x+1)+2)</div><div class='ans'>= 1/4</div>"},
+];
+var limD=[
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [sin(3x)/x]",a:"<div class='step'>= 3·[sin(3x)/(3x)] → 3·1</div><div class='ans'>= 3</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [sin(5x)/sin(3x)]",a:"<div class='step'>= [sin5x/(5x)]·5 / [sin3x/(3x)]·3 = 5/3</div><div class='ans'>= 5/3</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [(1 - cos x)/x]",a:"<div class='step'>Standard result</div><div class='ans'>= 0</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [(1 - cos x)/x²]",a:"<div class='step'>Standard result</div><div class='ans'>= 1/2</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [tan x / x]",a:"<div class='step'>= [sinx/x]·[1/cosx] → 1·1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [sin(x²)/x²]",a:"<div class='step'>Let u=x²; as x→0, u→0. = sin(u)/u → 1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(θ→0) [sin4θ / tan5θ]",a:"<div class='step'>= [sin4θ/4θ]·4 / [tan5θ/5θ]·5 = 4/5</div><div class='ans'>= 4/5</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [x·cot(x)]",a:"<div class='step'>= x·cosx/sinx = cosx·[x/sinx] → 1·1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [sin²(3x)/x²]",a:"<div class='step'>= [sin3x/x]² = [3·sin3x/(3x)]² → (3)² = 9</div><div class='ans'>= 9</div>"},
+{q:"<span class='tag tp'>Trig</span> lim(x→0) [(tan x - sin x)/x³]",a:"<div class='step'>= (sinx/cosx - sinx)/x³ = sinx(1-cosx)/(x³·cosx)</div><div class='step'>= [sinx/x]·[(1-cosx)/x²]·[1/cosx] → 1·(1/2)·1</div><div class='ans'>= 1/2</div>"},
+];
+var limE=[
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→0) [eˣ - 1]/x",a:"<div class='step'>0/0 form. L'H: eˣ/1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→0) [sin x]/x",a:"<div class='step'>0/0. L'H: cos x / 1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→∞) [x/eˣ]",a:"<div class='step'>∞/∞. L'H: 1/eˣ</div><div class='ans'>= 0</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→0) [ln(1+x)/x]",a:"<div class='step'>0/0. L'H: [1/(1+x)] / 1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→0) [(eˣ - 1 - x)/x²]",a:"<div class='step'>0/0. L'H: (eˣ-1)/(2x). Still 0/0. L'H again: eˣ/2</div><div class='ans'>= 1/2</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→1) [(ln x)/(x-1)]",a:"<div class='step'>0/0. L'H: (1/x)/1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→∞) [(ln x)/x]",a:"<div class='step'>∞/∞. L'H: (1/x)/1 = 1/x</div><div class='ans'>= 0</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→0) [(1 - cos x)/x²]",a:"<div class='step'>0/0. L'H: sinx/(2x). Still 0/0. L'H: cosx/2</div><div class='ans'>= 1/2</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→∞) [x²/eˣ]",a:"<div class='step'>∞/∞. L'H: 2x/eˣ. Still ∞/∞. L'H: 2/eˣ</div><div class='ans'>= 0</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→0) [sin(3x)/tan(5x)]",a:"<div class='step'>0/0. L'H: 3cos(3x)/(5sec²(5x)). At x=0: 3·1/(5·1)</div><div class='ans'>= 3/5</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→0⁺) [x·ln x]",a:"<div class='step'>0·(-∞) form. Rewrite: ln x / (1/x) → -∞/∞. L'H: (1/x)/(-1/x²) = -x</div><div class='ans'>= 0</div>"},
+{q:"<span class='tag tp'>L'Hopital</span> lim(x→∞) [x·e^(-x)]",a:"<div class='step'>∞·0 form. Rewrite: x/eˣ → ∞/∞. L'H: 1/eˣ</div><div class='ans'>= 0</div>"},
+];
+var limF=[
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [(3x² + 1)/(x² - 5)]",a:"<div class='step'>Divide by x²: (3 + 1/x²)/(1 - 5/x²) → 3/1</div><div class='ans'>= 3</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [(5x + 1)/(2x - 3)]",a:"<div class='step'>Divide by x: (5 + 1/x)/(2 - 3/x) → 5/2</div><div class='ans'>= 5/2</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [(x³ + x)/(2x³ - 1)]",a:"<div class='step'>Divide by x³: (1+1/x²)/(2-1/x³) → 1/2</div><div class='ans'>= 1/2</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [(4x² + 7)/(x³ + 1)]",a:"<div class='step'>Divide by x³: (4/x + 7/x³)/(1 + 1/x³) → 0/1</div><div class='ans'>= 0</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [(x² + 1)/x]",a:"<div class='step'>Divide by x: x + 1/x → ∞</div><div class='ans'>= ∞ (no horizontal asymptote)</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→-∞) [(3x - 1)/(x + 2)]",a:"<div class='step'>Divide by x: (3 - 1/x)/(1 + 2/x) → 3/1</div><div class='ans'>= 3</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [√(4x² + 1)/x]",a:"<div class='step'>= √((4x²+1)/x²) = √(4 + 1/x²) → √4</div><div class='ans'>= 2</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [(x + √x)/x]",a:"<div class='step'>= 1 + 1/√x → 1 + 0</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [x·sin(1/x)]",a:"<div class='step'>Let u=1/x; as x→∞, u→0. = sin(u)/u → 1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tg'>Infinity</span> lim(x→∞) [eˣ/(x⁴ + 1)]",a:"<div class='step'>Exponentials beat polynomials; apply L'H 4 times or use the rule</div><div class='ans'>= ∞</div>"},
+];
+var limG=[
+{q:"<span class='tag tr'>One-Sided</span> lim(x→0⁺) [1/x]",a:"<div class='ans'>= +∞ (approach from right, denominator → 0+)</div>"},
+{q:"<span class='tag tr'>One-Sided</span> lim(x→0⁻) [1/x]",a:"<div class='ans'>= -∞ (approach from left, denominator → 0-)</div>"},
+{q:"<span class='tag tr'>One-Sided</span> lim(x→2⁺) [(x-2)/(|x-2|)]",a:"<div class='step'>For x>2: |x-2| = x-2. Ratio = 1</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tr'>One-Sided</span> lim(x→2⁻) [(x-2)/(|x-2|)]",a:"<div class='step'>For x&lt;2: |x-2| = -(x-2). Ratio = -1</div><div class='ans'>= -1 (so overall limit DNE)</div>"},
+{q:"<span class='tag tr'>Piecewise</span> f(x) = {x+1 if x&lt;2, x²-1 if x≥2}. Does lim(x→2) exist?",a:"<div class='step'>Left: lim(x→2⁻) [x+1] = 3</div><div class='step'>Right: lim(x→2⁺) [x²-1] = 3</div><div class='ans'>Yes! Both sides equal 3, so lim = 3</div>"},
+{q:"<span class='tag tr'>Piecewise</span> f(x) = {2x if x&lt;1, x² if x≥1}. Does lim(x→1) exist?",a:"<div class='step'>Left: 2(1) = 2. Right: 1² = 1</div><div class='ans'>DNE — left limit (2) ≠ right limit (1)</div>"},
+{q:"<span class='tag tr'>One-Sided</span> lim(x→3⁺) [(x-3)/(x²-9)]",a:"<div class='step'>= (x-3)/((x-3)(x+3)) = 1/(x+3)</div><div class='ans'>= 1/6</div>"},
+{q:"<span class='tag tr'>One-Sided</span> lim(x→0⁺) [ln x]",a:"<div class='ans'>= -∞ (log approaches -∞ as x→0⁺)</div>"},
+];
+
+// ---- CHAIN RULE DATA ----
+var chainA=[
+{q:"<span class='tag tb'>Chain+Power</span> y = (3x + 1)⁵",a:"<div class='step'>Outer: 5u⁴; Inner: 3. = 5(3x+1)⁴·3</div><div class='ans'>y' = 15(3x+1)⁴</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = (x² - 4)⁷",a:"<div class='step'>7(x²-4)⁶·2x</div><div class='ans'>y' = 14x(x²-4)⁶</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = √(2x + 5) = (2x+5)^(1/2)",a:"<div class='step'>(1/2)(2x+5)^(-1/2)·2</div><div class='ans'>y' = 1/√(2x+5)</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = (x³ - x)^4",a:"<div class='step'>4(x³-x)³·(3x²-1)</div><div class='ans'>y' = 4(3x²-1)(x³-x)³</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = 1/(x²+1)² = (x²+1)^(-2)",a:"<div class='step'>-2(x²+1)^(-3)·2x</div><div class='ans'>y' = -4x/(x²+1)³</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = (sin x)³",a:"<div class='step'>3(sinx)²·cosx</div><div class='ans'>y' = 3sin²x·cosx</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = ∛(x² + 1) = (x²+1)^(1/3)",a:"<div class='step'>(1/3)(x²+1)^(-2/3)·2x</div><div class='ans'>y' = 2x / (3(x²+1)^(2/3))</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = (2x² - 3x + 1)^10",a:"<div class='step'>10(2x²-3x+1)⁹·(4x-3)</div><div class='ans'>y' = 10(4x-3)(2x²-3x+1)⁹</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = (1 - x²)^(3/2)",a:"<div class='step'>(3/2)(1-x²)^(1/2)·(-2x)</div><div class='ans'>y' = -3x√(1-x²)</div>"},
+{q:"<span class='tag tb'>Chain+Power</span> y = (x + 1/x)³",a:"<div class='step'>3(x+1/x)²·(1 - 1/x²)</div><div class='ans'>y' = 3(x+1/x)²·(x²-1)/x²</div>"},
+];
+var chainB=[
+{q:"<span class='tag tp'>Chain+Trig</span> y = sin(3x)",a:"<div class='ans'>y' = 3cos(3x)</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = cos(x²)",a:"<div class='ans'>y' = -2x·sin(x²)</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = tan(5x)",a:"<div class='ans'>y' = 5sec²(5x)</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = sin²(x)",a:"<div class='step'>= (sinx)². Outer: 2sinx; Inner: cosx</div><div class='ans'>y' = 2sinx·cosx = sin(2x)</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = cos³(2x)",a:"<div class='step'>3cos²(2x)·(-sin2x)·2</div><div class='ans'>y' = -6cos²(2x)·sin(2x)</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = sin(x² + 1)",a:"<div class='ans'>y' = 2x·cos(x²+1)</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = √(sin x)",a:"<div class='step'>(1/2)(sinx)^(-1/2)·cosx</div><div class='ans'>y' = cosx/(2√sinx)</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = tan²(x) = (tan x)²",a:"<div class='step'>2tanx·sec²x</div><div class='ans'>y' = 2tanx·sec²x</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = sin(cos x)",a:"<div class='ans'>y' = cos(cosx)·(-sinx) = -sinx·cos(cosx)</div>"},
+{q:"<span class='tag tp'>Chain+Trig</span> y = sec(3x²)",a:"<div class='step'>sec(3x²)·tan(3x²)·6x</div><div class='ans'>y' = 6x·sec(3x²)·tan(3x²)</div>"},
+];
+var chainC=[
+{q:"<span class='tag ty'>Chain+Exp</span> y = e^(3x)",a:"<div class='ans'>y' = 3e^(3x)</div>"},
+{q:"<span class='tag ty'>Chain+Exp</span> y = e^(x²)",a:"<div class='ans'>y' = 2x·e^(x²)</div>"},
+{q:"<span class='tag ty'>Chain+Exp</span> y = e^(sin x)",a:"<div class='ans'>y' = cosx·e^(sinx)</div>"},
+{q:"<span class='tag ty'>Chain+Log</span> y = ln(3x + 1)",a:"<div class='step'>= 1/(3x+1)·3</div><div class='ans'>y' = 3/(3x+1)</div>"},
+{q:"<span class='tag ty'>Chain+Log</span> y = ln(x² + 5)",a:"<div class='step'>= 1/(x²+5)·2x</div><div class='ans'>y' = 2x/(x²+5)</div>"},
+{q:"<span class='tag ty'>Chain+Log</span> y = ln(sin x)",a:"<div class='step'>= (1/sinx)·cosx</div><div class='ans'>y' = cosx/sinx = cot x</div>"},
+{q:"<span class='tag ty'>Chain+Exp</span> y = 2^x",a:"<div class='step'>Use: a^x = e^(x·ln a). y' = 2^x·ln 2</div><div class='ans'>y' = 2^x·ln 2</div>"},
+{q:"<span class='tag ty'>Chain+Log</span> y = ln(ln x)",a:"<div class='step'>= 1/(ln x)·(1/x)</div><div class='ans'>y' = 1/(x·ln x)</div>"},
+{q:"<span class='tag ty'>Chain+Exp</span> y = e^(-x²)",a:"<div class='ans'>y' = -2x·e^(-x²)</div>"},
+{q:"<span class='tag ty'>Chain+Log</span> y = log₅(x² + 1)",a:"<div class='step'>= 1/((x²+1)·ln5)·2x</div><div class='ans'>y' = 2x/((x²+1)ln5)</div>"},
+];
+var chainD=[
+{q:"<span class='tag tg'>Chain+Product</span> y = x·sin(x²)",a:"<div class='step'>Product: sin(x²) + x·cos(x²)·2x</div><div class='ans'>y' = sin(x²) + 2x²cos(x²)</div>"},
+{q:"<span class='tag tg'>Chain+Product</span> y = x²·e^(3x)",a:"<div class='step'>Product: 2x·e^(3x) + x²·3e^(3x)</div><div class='ans'>y' = xe^(3x)(2 + 3x)</div>"},
+{q:"<span class='tag tg'>Chain+Product</span> y = (x+1)·√(2x-1)",a:"<div class='step'>Product: √(2x-1) + (x+1)·1/√(2x-1)</div><div class='ans'>y' = √(2x-1) + (x+1)/√(2x-1) = (3x)/(√(2x-1))</div>"},
+{q:"<span class='tag tg'>Chain+Product</span> y = sin(x)·cos(3x)",a:"<div class='step'>Product: cos(x)·cos(3x) + sin(x)·(-3sin(3x))</div><div class='ans'>y' = cos(x)cos(3x) - 3sin(x)sin(3x)</div>"},
+{q:"<span class='tag tg'>Chain+Product</span> y = x³·ln(x²)",a:"<div class='step'>Product: 3x²·ln(x²) + x³·(2/x) = 3x²ln(x²) + 2x²</div><div class='ans'>y' = x²(3ln(x²) + 2) = x²(6lnx + 2)</div>"},
+{q:"<span class='tag tg'>Chain+Product</span> y = eˣ·sin(2x)",a:"<div class='step'>Product: eˣ·sin(2x) + eˣ·2cos(2x)</div><div class='ans'>y' = eˣ(sin2x + 2cos2x)</div>"},
+];
+var chainE=[
+{q:"<span class='tag tr'>Chain+Quotient</span> y = sin(x)/(x² + 1)",a:"<div class='step'>Quotient: [cos(x)(x²+1) - sin(x)·2x]/(x²+1)²</div><div class='ans'>y' = [cos(x)(x²+1) - 2x·sinx]/(x²+1)²</div>"},
+{q:"<span class='tag tr'>Chain+Quotient</span> y = e^(2x)/(x + 1)",a:"<div class='step'>Quotient: [2e^(2x)(x+1) - e^(2x)]/(x+1)²</div><div class='ans'>y' = e^(2x)(2x+1)/(x+1)²</div>"},
+{q:"<span class='tag tr'>Chain+Quotient</span> y = ln(x)/(x² + 1)",a:"<div class='step'>Quotient: [(1/x)(x²+1) - ln(x)·2x]/(x²+1)²</div><div class='ans'>y' = [(x²+1)/x - 2x·lnx]/(x²+1)²</div>"},
+{q:"<span class='tag tr'>Chain+Quotient</span> y = sin²(x)/cos(x)",a:"<div class='step'>Quotient: [2sinx·cosx·cosx - sin²x·(-sinx)]/cos²x = [2sinxcos²x + sin³x]/cos²x</div><div class='step'>= sinx(2cos²x + sin²x)/cos²x = sinx(1+cos²x)/cos²x</div><div class='ans'>y' = tanx·secx + sinx·secx (many equivalent forms)</div>"},
+{q:"<span class='tag tr'>Chain+Quotient</span> y = √x/(x² + 1)",a:"<div class='step'>Quotient: [(1/2√x)(x²+1) - √x·2x]/(x²+1)²</div><div class='ans'>y' = (1-3x²) / (2√x·(x²+1)²)</div>"},
+];
+var chainF=[
+{q:"<span class='tag tr'>Triple Chain</span> y = sin(e^(x²))",a:"<div class='step'>Layer 1: sin. Layer 2: e^u. Layer 3: x²</div><div class='step'>= cos(e^(x²))·e^(x²)·2x</div><div class='ans'>y' = 2x·e^(x²)·cos(e^(x²))</div>"},
+{q:"<span class='tag tr'>Triple Chain</span> y = ln(sin(3x))",a:"<div class='step'>= [1/sin(3x)]·cos(3x)·3</div><div class='ans'>y' = 3cos(3x)/sin(3x) = 3cot(3x)</div>"},
+{q:"<span class='tag tr'>Triple Chain</span> y = e^(sin²x)",a:"<div class='step'>e^(sin²x)·2sinx·cosx = e^(sin²x)·sin(2x)</div><div class='ans'>y' = sin(2x)·e^(sin²x)</div>"},
+{q:"<span class='tag tr'>Triple Chain</span> y = (ln(x² + 1))³",a:"<div class='step'>3(ln(x²+1))²·[1/(x²+1)]·2x</div><div class='ans'>y' = 6x·(ln(x²+1))² / (x²+1)</div>"},
+{q:"<span class='tag tr'>Triple Chain</span> y = √(1 + sin²x)",a:"<div class='step'>= [1/(2√(1+sin²x))]·2sinx·cosx</div><div class='ans'>y' = sinx·cosx/√(1+sin²x) = sin(2x)/(2√(1+sin²x))</div>"},
+{q:"<span class='tag tr'>Triple Chain</span> y = sin³(x² + 1)",a:"<div class='step'>3sin²(x²+1)·cos(x²+1)·2x</div><div class='ans'>y' = 6x·sin²(x²+1)·cos(x²+1)</div>"},
+];
+
+// ---- DERIVATIVE DRILLS DATA ----
+var drvA=[
+{q:"<span class='tag tg'>Power</span> f(x) = 7x⁴ - 3x³ + 2x - 9",a:"<div class='ans'>f'(x) = 28x³ - 9x² + 2</div>"},
+{q:"<span class='tag tg'>Power</span> f(x) = 5x^(2/3) - 3x^(-1/2)",a:"<div class='ans'>f'(x) = (10/3)x^(-1/3) + (3/2)x^(-3/2)</div>"},
+{q:"<span class='tag tg'>Power</span> f(x) = (3x² + 1)(x - 4) — expand first",a:"<div class='step'>= 3x³ - 12x² + x - 4</div><div class='ans'>f'(x) = 9x² - 24x + 1</div>"},
+{q:"<span class='tag tg'>Power</span> f(x) = x⁴/4 - x³/3 + x²/2 - x + 1",a:"<div class='ans'>f'(x) = x³ - x² + x - 1</div>"},
+{q:"<span class='tag tg'>Power</span> f(x) = (x² + 1)² — expand first",a:"<div class='step'>= x⁴ + 2x² + 1</div><div class='ans'>f'(x) = 4x³ + 4x</div>"},
+{q:"<span class='tag tg'>Power</span> f(x) = √x + 1/√x",a:"<div class='step'>= x^(1/2) + x^(-1/2)</div><div class='ans'>f'(x) = 1/(2√x) - 1/(2x^(3/2))</div>"},
+{q:"<span class='tag tg'>Power</span> f(x) = (2x + 1)³ — expand first",a:"<div class='step'>= 8x³+12x²+6x+1</div><div class='ans'>f'(x) = 24x²+24x+6</div>"},
+{q:"<span class='tag tg'>Power</span> f(x) = x^π + π^x",a:"<div class='ans'>f'(x) = π·x^(π-1) + π^x·ln π</div>"},
+];
+var drvB=[
+{q:"<span class='tag tb'>Product</span> f(x) = x²·sin(x)",a:"<div class='step'>2x·sinx + x²·cosx</div><div class='ans'>f'(x) = 2x·sinx + x²·cosx</div>"},
+{q:"<span class='tag tb'>Product</span> f(x) = x·eˣ",a:"<div class='step'>eˣ + x·eˣ</div><div class='ans'>f'(x) = eˣ(1+x)</div>"},
+{q:"<span class='tag tb'>Product</span> f(x) = x³·ln(x)",a:"<div class='step'>3x²·lnx + x³·(1/x) = 3x²lnx + x²</div><div class='ans'>f'(x) = x²(3lnx + 1)</div>"},
+{q:"<span class='tag tb'>Product</span> f(x) = (x² + 1)(x³ - 2)",a:"<div class='step'>2x(x³-2) + (x²+1)(3x²) = 2x⁴-4x+3x⁴+3x²</div><div class='ans'>f'(x) = 5x⁴ + 3x² - 4x</div>"},
+{q:"<span class='tag tb'>Product</span> f(x) = √x·cos(x)",a:"<div class='step'>1/(2√x)·cosx + √x·(-sinx)</div><div class='ans'>f'(x) = cosx/(2√x) - √x·sinx</div>"},
+{q:"<span class='tag tb'>Product</span> f(x) = x·ln(x) - x",a:"<div class='step'>lnx + x·(1/x) - 1 = lnx + 1 - 1</div><div class='ans'>f'(x) = ln(x)</div>"},
+{q:"<span class='tag tb'>Product</span> f(x) = (2x+1)(3x-2)",a:"<div class='step'>2(3x-2) + (2x+1)(3) = 6x-4+6x+3</div><div class='ans'>f'(x) = 12x - 1</div>"},
+{q:"<span class='tag tb'>Product</span> f(x) = eˣ·cos(x)",a:"<div class='step'>eˣcosx + eˣ(-sinx)</div><div class='ans'>f'(x) = eˣ(cosx - sinx)</div>"},
+];
+var drvC=[
+{q:"<span class='tag ty'>Quotient</span> f(x) = (x+1)/(x-1)",a:"<div class='step'>[(x-1) - (x+1)]/(x-1)² = -2/(x-1)²</div><div class='ans'>f'(x) = -2/(x-1)²</div>"},
+{q:"<span class='tag ty'>Quotient</span> f(x) = (2x² - 1)/(x + 3)",a:"<div class='step'>[4x(x+3) - (2x²-1)]/(x+3)² = (4x²+12x-2x²+1)/(x+3)² = (2x²+12x+1)/(x+3)²</div><div class='ans'>f'(x) = (2x²+12x+1)/(x+3)²</div>"},
+{q:"<span class='tag ty'>Quotient</span> f(x) = sin(x)/x",a:"<div class='step'>[cosx·x - sinx·1]/x² </div><div class='ans'>f'(x) = (xcosx - sinx)/x²</div>"},
+{q:"<span class='tag ty'>Quotient</span> f(x) = x²/(x² + 1)",a:"<div class='step'>[2x(x²+1) - x²·2x]/(x²+1)² = 2x/(x²+1)²</div><div class='ans'>f'(x) = 2x/(x²+1)²</div>"},
+{q:"<span class='tag ty'>Quotient</span> f(x) = eˣ/(1 + x)",a:"<div class='step'>[eˣ(1+x) - eˣ]/(1+x)² = eˣ·x/(1+x)²</div><div class='ans'>f'(x) = xeˣ/(1+x)²</div>"},
+{q:"<span class='tag ty'>Quotient</span> f(x) = (x - 1)/(√x)",a:"<div class='step'>= x^(1/2) - x^(-1/2). f' = 1/(2√x) + 1/(2x^(3/2))</div><div class='step'>Or quotient: [√x - (x-1)·1/(2√x)]/x</div><div class='ans'>f'(x) = (x+1)/(2x^(3/2))</div>"},
+{q:"<span class='tag ty'>Quotient</span> f(x) = cos(x)/(1 + sin(x))",a:"<div class='step'>[-sinx(1+sinx) - cosx·cosx]/(1+sinx)² = [-sinx - sin²x - cos²x]/(1+sinx)² = -(sinx+1)/(1+sinx)²</div><div class='ans'>f'(x) = -1/(1+sinx)</div>"},
+];
+var drvD=[
+{q:"<span class='tag tp'>Trig</span> d/dx[sin x]",a:"<div class='ans'>cos x</div>"},
+{q:"<span class='tag tp'>Trig</span> d/dx[cos x]",a:"<div class='ans'>-sin x</div>"},
+{q:"<span class='tag tp'>Trig</span> d/dx[tan x]",a:"<div class='ans'>sec²x</div>"},
+{q:"<span class='tag tp'>Trig</span> d/dx[csc x]",a:"<div class='ans'>-csc x · cot x</div>"},
+{q:"<span class='tag tp'>Trig</span> d/dx[sec x]",a:"<div class='ans'>sec x · tan x</div>"},
+{q:"<span class='tag tp'>Trig</span> d/dx[cot x]",a:"<div class='ans'>-csc²x</div>"},
+{q:"<span class='tag tp'>Trig</span> f(x) = x·tan(x)",a:"<div class='step'>Product: tanx + x·sec²x</div><div class='ans'>f'(x) = tan x + x·sec²x</div>"},
+{q:"<span class='tag tp'>Trig</span> f(x) = sin(x)·cos(x)",a:"<div class='step'>Product: cos²x - sin²x = cos(2x)</div><div class='ans'>f'(x) = cos(2x)</div>"},
+{q:"<span class='tag tp'>Trig</span> f(x) = sec²x - tan²x",a:"<div class='step'>Use identity: sec²x - tan²x = 1 (constant!)</div><div class='ans'>f'(x) = 0</div>"},
+{q:"<span class='tag tp'>Trig</span> f(x) = x²·csc(x)",a:"<div class='step'>Product: 2x·cscx + x²·(-cscx·cotx)</div><div class='ans'>f'(x) = x·cscx(2 - x·cotx)</div>"},
+];
+var drvE=[
+{q:"<span class='tag tp'>Inv Trig</span> d/dx[arcsin x]",a:"<div class='ans'>1/√(1-x²)</div>"},
+{q:"<span class='tag tp'>Inv Trig</span> d/dx[arccos x]",a:"<div class='ans'>-1/√(1-x²)</div>"},
+{q:"<span class='tag tp'>Inv Trig</span> d/dx[arctan x]",a:"<div class='ans'>1/(1+x²)</div>"},
+{q:"<span class='tag tp'>Inv Trig</span> f(x) = arctan(2x)",a:"<div class='step'>Chain: 1/(1+(2x)²)·2</div><div class='ans'>f'(x) = 2/(1+4x²)</div>"},
+{q:"<span class='tag tp'>Inv Trig</span> f(x) = arcsin(√x)",a:"<div class='step'>Chain: 1/√(1-x)·(1/2√x)</div><div class='ans'>f'(x) = 1/(2√(x(1-x)))</div>"},
+{q:"<span class='tag tp'>Inv Trig</span> f(x) = x·arctan(x)",a:"<div class='step'>Product: arctan(x) + x/(1+x²)</div><div class='ans'>f'(x) = arctan(x) + x/(1+x²)</div>"},
+{q:"<span class='tag tp'>Inv Trig</span> f(x) = arctan(x/a) where a is constant",a:"<div class='step'>Chain: 1/(1+(x/a)²)·(1/a) = 1/(1+x²/a²)·(1/a) = a²/(a²+x²)·(1/a)</div><div class='ans'>f'(x) = a/(a²+x²)</div>"},
+{q:"<span class='tag tp'>Inv Trig</span> f(x) = arcsin(3x) + arccos(3x)",a:"<div class='step'>= 3/√(1-9x²) + (-3/√(1-9x²))</div><div class='ans'>f'(x) = 0 (since arcsin+arccos = π/2, constant)</div>"},
+];
+var drvF=[
+{q:"<span class='tag ty'>Exp/Log</span> d/dx[eˣ]",a:"<div class='ans'>eˣ</div>"},
+{q:"<span class='tag ty'>Exp/Log</span> d/dx[aˣ]",a:"<div class='ans'>aˣ·ln a</div>"},
+{q:"<span class='tag ty'>Exp/Log</span> d/dx[ln x]",a:"<div class='ans'>1/x</div>"},
+{q:"<span class='tag ty'>Exp/Log</span> d/dx[logₐ x]",a:"<div class='ans'>1/(x·ln a)</div>"},
+{q:"<span class='tag ty'>Exp/Log</span> f(x) = x²·eˣ - 2xeˣ + 2eˣ",a:"<div class='step'>f' = 2xeˣ + x²eˣ - 2eˣ - 2xeˣ + 2eˣ</div><div class='ans'>f'(x) = x²eˣ</div>"},
+{q:"<span class='tag ty'>Exp/Log</span> f(x) = ln(x² + 3x + 2)",a:"<div class='step'>= (2x+3)/(x²+3x+2) = (2x+3)/((x+1)(x+2))</div><div class='ans'>f'(x) = (2x+3)/(x²+3x+2)</div>"},
+{q:"<span class='tag ty'>Exp/Log</span> f(x) = e^(x²+1)",a:"<div class='ans'>f'(x) = 2x·e^(x²+1)</div>"},
+{q:"<span class='tag ty'>Exp/Log</span> f(x) = ln(x·eˣ)",a:"<div class='step'>= ln x + x. f' = 1/x + 1</div><div class='ans'>f'(x) = (x+1)/x</div>"},
+];
+var drvG=[
+{q:"<span class='tag tr'>Higher-Order</span> f(x) = x⁴. Find f''(x).",a:"<div class='step'>f' = 4x³; f'' = 12x²</div><div class='ans'>f''(x) = 12x²</div>"},
+{q:"<span class='tag tr'>Higher-Order</span> f(x) = sin x. Find f⁽⁴⁾(x) (4th derivative).",a:"<div class='step'>f' = cosx; f'' = -sinx; f''' = -cosx; f'''' = sinx</div><div class='ans'>f⁽⁴⁾(x) = sin x (cycles back!)</div>"},
+{q:"<span class='tag tr'>Higher-Order</span> f(x) = eˣ. What is f⁽ⁿ⁾(x)?",a:"<div class='ans'>f⁽ⁿ⁾(x) = eˣ for all n</div>"},
+{q:"<span class='tag tr'>Higher-Order</span> f(x) = x³ - 3x. Find f'''(x).",a:"<div class='step'>f' = 3x²-3; f'' = 6x; f''' = 6</div><div class='ans'>f'''(x) = 6</div>"},
+{q:"<span class='tag tr'>Higher-Order</span> y = ln x. Find y'''.",a:"<div class='step'>y' = 1/x = x^(-1); y'' = -x^(-2); y''' = 2x^(-3)</div><div class='ans'>y''' = 2/x³</div>"},
+{q:"<span class='tag tr'>Higher-Order</span> f(x) = x·eˣ. Find f''(x).",a:"<div class='step'>f' = eˣ + xeˣ = eˣ(1+x); f'' = eˣ(1+x) + eˣ</div><div class='ans'>f''(x) = eˣ(2+x)</div>"},
+];
+
+// ---- MIXED EXAM SETS ----
+var mixA=[
+{q:"lim(x→2) [(x² - 4)/(x - 2)]",a:"<div class='step'>Factor: (x-2)(x+2)/(x-2) = x+2</div><div class='ans'>= 4</div>"},
+{q:"d/dx[x³ - 4x + 7]",a:"<div class='ans'>3x² - 4</div>"},
+{q:"lim(x→0) [sin(2x)/x]",a:"<div class='step'>= 2·[sin(2x)/(2x)] → 2·1</div><div class='ans'>= 2</div>"},
+{q:"d/dx[x²·sin(x)]",a:"<div class='step'>Product: 2x·sinx + x²·cosx</div><div class='ans'>2x sinx + x² cosx</div>"},
+{q:"lim(x→∞) [(3x² - 1)/(x² + 2)]",a:"<div class='step'>Divide by x²: 3/1</div><div class='ans'>= 3</div>"},
+{q:"d/dx[ln(x² + 1)]",a:"<div class='step'>Chain: 2x/(x²+1)</div><div class='ans'>2x/(x²+1)</div>"},
+{q:"lim(x→0) [eˣ - 1]/x",a:"<div class='step'>L'H or standard: eˣ/1</div><div class='ans'>= 1</div>"},
+{q:"d/dx[(2x + 3)⁵]",a:"<div class='step'>5(2x+3)⁴·2</div><div class='ans'>10(2x+3)⁴</div>"},
+{q:"lim(x→1) [(x³ - 1)/(x - 1)]",a:"<div class='step'>= x²+x+1 at x=1</div><div class='ans'>= 3</div>"},
+{q:"d/dx[e^(sin x)]",a:"<div class='step'>e^(sinx)·cosx</div><div class='ans'>cos(x)·e^(sinx)</div>"},
+{q:"lim(x→0) [(√(x+1) - 1)/x]",a:"<div class='step'>Rationalize: 1/(√(x+1)+1)</div><div class='ans'>= 1/2</div>"},
+{q:"d/dx[arctan(3x)]",a:"<div class='step'>Chain: 3/(1+9x²)</div><div class='ans'>3/(1+9x²)</div>"},
+];
+var mixB=[
+{q:"Find the equation of the tangent line to y = x² - 3x at x = 2.",a:"<div class='step'>y(2) = 4-6 = -2. y' = 2x-3; m = 1</div><div class='ans'>y + 2 = 1(x - 2) → y = x - 4</div>"},
+{q:"f(x) = x³ - 6x² + 9x. Find all local max/min.",a:"<div class='step'>f' = 3x²-12x+9 = 3(x-1)(x-3) = 0 → x=1,3</div><div class='step'>f''(1)=-6&lt;0 → local MAX; f''(3)=6>0 → local MIN</div><div class='ans'>Local max at (1,4); Local min at (3,0)</div>"},
+{q:"s(t) = t³ - 6t² + 9t. When is the object at rest?",a:"<div class='step'>v(t) = 3t²-12t+9 = 3(t-1)(t-3) = 0</div><div class='ans'>t = 1 and t = 3</div>"},
+{q:"Find d/dx[x² + y² = 25] (implicit differentiation).",a:"<div class='step'>2x + 2y·dy/dx = 0</div><div class='ans'>dy/dx = -x/y</div>"},
+{q:"Maximize area of rectangle with perimeter = 40m.",a:"<div class='step'>2x+2y=40 → y=20-x. A=x(20-x); A'=20-2x=0 → x=10</div><div class='ans'>10×10 square. Max area = 100 m²</div>"},
+{q:"Find all inflection points of f(x) = x⁴ - 6x².",a:"<div class='step'>f' = 4x³-12x; f'' = 12x²-12 = 0 → x=±1</div><div class='step'>Check sign change: f'' goes +,−,+ → sign changes at both</div><div class='ans'>Inflection points at (1,-5) and (-1,-5)</div>"},
+{q:"Apply MVT to f(x) = x² on [0,3]. Find c.",a:"<div class='step'>Avg rate = (9-0)/3 = 3. f'(c)=2c=3 → c=3/2</div><div class='ans'>c = 3/2</div>"},
+{q:"Linearize f(x) = √x at a=16. Approximate √16.4.",a:"<div class='step'>f(16)=4, f'(x)=1/(2√x), f'(16)=1/8</div><div class='step'>L(16.4)=4+(1/8)(0.4)=4+0.05</div><div class='ans'>≈ 4.05</div>"},
+{q:"f(x) = 2x³ - 9x² + 12x. Intervals where increasing?",a:"<div class='step'>f' = 6x²-18x+12 = 6(x-1)(x-2)</div><div class='ans'>Increasing on (-∞,1) and (2,∞)</div>"},
+{q:"Find normal line to y = x² at (2,4).",a:"<div class='step'>m_tangent = 4; m_normal = -1/4</div><div class='ans'>y-4 = -1/4(x-2) → y = -x/4 + 9/2</div>"},
+];
+var mixC=[
+{q:"x²y + y³ = 10. Find dy/dx.",a:"<div class='step'>2xy + x²y' + 3y²y' = 0</div><div class='step'>y'(x²+3y²) = -2xy</div><div class='ans'>dy/dx = -2xy/(x²+3y²)</div>"},
+{q:"Closest point on y = x² to (0, 3).",a:"<div class='step'>D² = x²+(x²-3)² = x⁴-5x²+9. d(D²)/dx = 4x³-10x = 2x(2x²-5) = 0</div><div class='step'>x=0 (D²=9) or x=±√(5/2) (D²=9-25/4=11/4 < 9)</div><div class='ans'>Closest points: (±√(5/2), 5/2)</div>"},
+{q:"y = xˣ. Find dy/dx using log differentiation.",a:"<div class='step'>ln y = x ln x → (1/y)y' = ln x + 1</div><div class='ans'>dy/dx = xˣ(ln x + 1)</div>"},
+{q:"Find tangent line to x² + y² = 25 at (4,3).",a:"<div class='step'>dy/dx = -x/y = -4/3</div><div class='ans'>y-3 = -4/3(x-4) → y = -4x/3 + 25/3</div>"},
+{q:"A box with square base and no top must have volume 32 m³. Minimize surface area.",a:"<div class='step'>x²h=32 → h=32/x². SA=x²+4xh=x²+128/x</div><div class='step'>SA'=2x-128/x²=0 → x³=64 → x=4; h=2</div><div class='ans'>4×4×2 box. Min SA = 16+32 = 48 m²</div>"},
+{q:"Given s(t)=t³-6t, when is the object speeding up on t>0?",a:"<div class='step'>v=3t²-6=3(t²-2); a=6t>0 for t>0</div><div class='step'>Speeding up: v and a same sign. a>0 always(t>0). Need v>0: t>√2</div><div class='ans'>Speeding up for t > √2</div>"},
+{q:"sin(x+y) = xy. Find dy/dx.",a:"<div class='step'>cos(x+y)(1+y') = y + xy'</div><div class='step'>y'(cos(x+y)-x) = y - cos(x+y)</div><div class='ans'>dy/dx = (y - cos(x+y))/(cos(x+y) - x)</div>"},
+{q:"Find the critical numbers of f(x) = x·e^(-x²).",a:"<div class='step'>f'=e^(-x²)+x·(-2x)e^(-x²)=e^(-x²)(1-2x²)=0</div><div class='step'>e^(-x²)≠0, so 1-2x²=0 → x=±1/√2</div><div class='ans'>Critical numbers: x = ±1/√2 = ±√2/2</div>"},
+{q:"Verify Rolle's Theorem for f(x)=x²-4 on [-2,2] and find c.",a:"<div class='step'>f(-2)=0=f(2) ✓. Polynomial → cont. and diff. ✓</div><div class='step'>f'(c)=2c=0 → c=0 ∈(-2,2) ✓</div><div class='ans'>c = 0</div>"},
+{q:"Find the minimum value of f(x) = eˣ + e^(-x).",a:"<div class='step'>f' = eˣ - e^(-x) = 0 → eˣ = e^(-x) → e^(2x)=1 → x=0</div><div class='step'>f(0)=1+1=2; f''=eˣ+e^(-x)>0 → min</div><div class='ans'>Min value = 2 at x = 0</div>"},
+];
+var mixD=[
+{q:"Complete analysis of f(x) = (x-1)²(x+2). Find all critical points, inflection, intercepts.",a:"<div class='step'>Roots: x=1 (double), x=-2. y-int: f(0)=(1)(2)=2</div><div class='step'>f'=(2(x-1)(x+2)+(x-1)²)=(x-1)(2(x+2)+(x-1))=(x-1)(3x+3)=3(x-1)(x+1)</div><div class='step'>CP: x=1 (min) and x=-1 (max)</div><div class='step'>f''=6x; inflection at x=0</div><div class='ans'>Local max (-1,4); Local min (1,0); Inflection (0,2)</div>"},
+{q:"f(x) = x/(x²-4). Find domain, VA, HA, f', intervals of inc/dec.",a:"<div class='step'>Domain: x≠±2</div><div class='step'>VA: x=±2; HA: y=0 (degree 1 < 2)</div><div class='step'>f'=[(x²-4)-x·2x]/(x²-4)²=-(x²+4)/(x²-4)²</div><div class='step'>f'<0 always → always decreasing on each interval</div><div class='ans'>Decreasing on (-∞,-2),(-2,2),(2,∞)</div>"},
+{q:"A ladder 10m long leans against a wall. The bottom slides away at 1 m/s. How fast is the top sliding down when the bottom is 6m from the wall?",a:"<div class='step'>x²+y²=100; 2x(dx/dt)+2y(dy/dt)=0</div><div class='step'>When x=6: y=√(100-36)=8</div><div class='step'>2(6)(1)+2(8)(dy/dt)=0 → 16(dy/dt)=-12</div><div class='ans'>dy/dt = -3/4 m/s (top slides down at 0.75 m/s)</div>"},
+{q:"Find dy/dx for y = (x²+1)^(sin x) using log differentiation.",a:"<div class='step'>ln y = sin(x)·ln(x²+1)</div><div class='step'>(1/y)y' = cos(x)·ln(x²+1) + sin(x)·2x/(x²+1)</div><div class='ans'>dy/dx = (x²+1)^(sinx)·[cosx·ln(x²+1) + 2x·sinx/(x²+1)]</div>"},
+{q:"Maximize the area of a rectangle inscribed in the ellipse x²/9 + y²/4 = 1.",a:"<div class='step'>Area = 4xy; constraint: x²/9 + y²/4 = 1 → y=2√(1-x²/9)</div><div class='step'>A=8x√(1-x²/9); dA/dx=0 → x=3/√2; y=2/√2=√2</div><div class='step'>Max A=4·(3/√2)·√2=4·3=12</div><div class='ans'>Max area = 12 sq units</div>"},
+{q:"Find all values of c satisfying MVT for f(x)=x³-x on [-2,2].",a:"<div class='step'>f(-2)=-6, f(2)=6. Avg rate = 12/4 = 3</div><div class='step'>f'(c)=3c²-1=3 → 3c²=4 → c=±2/√3 = ±2√3/3</div><div class='step'>Both ±2√3/3 ≈ ±1.15 ∈(-2,2) ✓</div><div class='ans'>c = ±2√3/3</div>"},
+{q:"Water drains from a conical tank (radius 3m, height 6m) at 2 m³/min. How fast is water level dropping when water is 4m deep?",a:"<div class='step'>By similar triangles: r=h/2. V=(1/3)πr²h=(1/3)π(h/2)²h=πh³/12</div><div class='step'>dV/dt=πh²/4·dh/dt. When h=4, dV/dt=-2:</div><div class='step'>-2=π(16)/4·dh/dt → dh/dt = -2·4/(16π) = -1/(2π)</div><div class='ans'>dh/dt = -1/(2π) m/min ≈ -0.159 m/min</div>"},
+{q:"f(x) = eˣ - x. Prove it has a global minimum and find it.",a:"<div class='step'>f'(x) = eˣ - 1 = 0 → eˣ = 1 → x = 0 (only critical point)</div><div class='step'>f''(x) = eˣ > 0 everywhere → always concave up → global min</div><div class='step'>f(0) = 1 - 0 = 1</div><div class='ans'>Global min = 1 at x = 0</div>"},
+];
+
+// ---- HARD PROBLEMS ----
+var hardA=[
+{q:"<span class='tag tr'>HARD</span> y = (sin x)^(cos x). Find dy/dx.",a:"<div class='step'>Log diff: ln y = cos(x)·ln(sin x)</div><div class='step'>(1/y)y' = -sin(x)·ln(sin x) + cos(x)·(cos x/sin x)</div><div class='step'>= -sinx·lnsinx + cos²x/sinx</div><div class='ans'>dy/dx = (sinx)^(cosx)·[-sinx·lnsinx + cos²x/sinx]</div>"},
+{q:"<span class='tag tr'>HARD</span> Find f'(x) for f(x) = arctan(√((1-x)/(1+x)))",a:"<div class='step'>Let u=√((1-x)/(1+x)). f=arctan(u)</div><div class='step'>du/dx: Let v=(1-x)/(1+x). v'=[-(1+x)-(1-x)]/(1+x)² = -2/(1+x)²</div><div class='step'>du/dx = (1/(2√v))·(-2/(1+x)²) = -1/((1+x)²√v)</div><div class='step'>f'=1/(1+u²)·du/dx. 1+u²=1+(1-x)/(1+x)=2/(1+x)</div><div class='step'>f'=(1+x)/2·(-1/(1+x)²√((1-x)/(1+x)))</div><div class='ans'>f'(x) = -1/(2√(1-x²)) [after simplification]</div>"},
+{q:"<span class='tag tr'>HARD</span> y = x^(x^x). Find dy/dx.",a:"<div class='step'>Let u = xˣ = e^(x ln x). u' = xˣ(1+ln x)</div><div class='step'>y = x^u. Log diff: ln y = u·ln x</div><div class='step'>(1/y)y' = u'·lnx + u/x = xˣ(1+lnx)lnx + xˣ/x</div><div class='ans'>dy/dx = x^(x^x)·xˣ·[(1+lnx)lnx + 1/x]</div>"},
+{q:"<span class='tag tr'>HARD</span> Differentiate f(x) = arcsin(x/√(x²+1))",a:"<div class='step'>Let u=x/√(x²+1). du/dx = [√(x²+1)-x·x/√(x²+1)]/(x²+1) = 1/(x²+1)^(3/2)</div><div class='step'>f'=1/√(1-u²)·du/dx. 1-u²=1-x²/(x²+1)=1/(x²+1). √(1-u²)=1/√(x²+1)</div><div class='step'>f'=√(x²+1)·1/(x²+1)^(3/2)</div><div class='ans'>f'(x) = 1/(x²+1) = d/dx[arctan x] — meaning arcsin(x/√(x²+1)) = arctan(x) + C !</div>"},
+];
+var hardB=[
+{q:"<span class='tag tr'>HARD Limit</span> lim(x→0) [(sin x - x)/x³]",a:"<div class='step'>0/0 form. L'H: (cosx-1)/(3x²). Still 0/0. L'H: -sinx/(6x). Still 0/0. L'H: -cosx/6</div><div class='ans'>= -1/6</div>"},
+{q:"<span class='tag tr'>HARD Limit</span> lim(x→0) [(eˣ - e^(-x) - 2x)/x³]",a:"<div class='step'>0/0. L'H: (eˣ+e^(-x)-2)/(3x²). Still 0/0. L'H: (eˣ-e^(-x))/(6x). L'H: (eˣ+e^(-x))/6</div><div class='ans'>= 2/6 = 1/3</div>"},
+{q:"<span class='tag tr'>HARD Limit</span> lim(x→0⁺) [xˣ]",a:"<div class='step'>0⁰ form. Let y=xˣ. ln y = x·lnx → 0·(-∞). Rewrite: lnx/(1/x) → -∞/∞. L'H: (1/x)/(-1/x²)=-x → 0</div><div class='step'>So ln y → 0, meaning y → e⁰</div><div class='ans'>= 1</div>"},
+{q:"<span class='tag tr'>HARD Limit</span> lim(x→∞) [(1 + a/x)^x]",a:"<div class='step'>1^∞ form. Let y=(1+a/x)^x. ln y = x·ln(1+a/x)</div><div class='step'>= ln(1+a/x)/(1/x) → 0/0 as x→∞. L'H: [(-a/x²)/(1+a/x)] / (-1/x²) = a/(1+a/x) → a</div><div class='step'>So ln y → a</div><div class='ans'>= eᵃ (famous limit — basis of eˣ = lim(1+x/n)^n)</div>"},
+{q:"<span class='tag tr'>HARD Limit</span> lim(x→0) [(cos x)^(1/x²)]",a:"<div class='step'>1^∞ form. ln y = ln(cosx)/x². L'H: (-sinx/cosx)/(2x) = -tanx/(2x) → -(1/2) as x→0</div><div class='ans'>= e^(-1/2) = 1/√e</div>"},
+];
+var hardC=[
+{q:"<span class='tag tr'>HARD Implicit</span> Find d²y/dx² for x²+y²=a² (circle).",a:"<div class='step'>y'=-x/y. y''=d/dx[-x/y]=(-y-(-x)y')/y²=(-y+x(-x/y))/y²</div><div class='step'>=(-y²-x²)/y³=-(x²+y²)/y³=-a²/y³</div><div class='ans'>y'' = -a²/y³</div>"},
+{q:"<span class='tag tr'>HARD Log Diff</span> y = (x+1)^(1/2)·(x+2)^(1/3)·(x+3)^(1/4). Find y'.",a:"<div class='step'>ln y = (1/2)ln(x+1) + (1/3)ln(x+2) + (1/4)ln(x+3)</div><div class='step'>(1/y)y' = 1/(2(x+1)) + 1/(3(x+2)) + 1/(4(x+3))</div><div class='ans'>y' = y·[1/(2(x+1)) + 1/(3(x+2)) + 1/(4(x+3))]</div>"},
+{q:"<span class='tag tr'>HARD Implicit</span> x = sin(y). Show dy/dx = 1/√(1-x²).",a:"<div class='step'>Implicit: 1 = cos(y)·dy/dx → dy/dx = 1/cos(y)</div><div class='step'>From x=sin y: cos²y = 1-sin²y = 1-x², so cosy = √(1-x²)</div><div class='ans'>dy/dx = 1/√(1-x²) ✓</div>"},
+{q:"<span class='tag tr'>HARD</span> Show that y=eˣ and y=xeˣ have the same derivative pattern. Find y' for xⁿeˣ.",a:"<div class='step'>y=eˣ: y'=eˣ</div><div class='step'>y=xeˣ: y'=eˣ+xeˣ=eˣ(1+x)</div><div class='step'>y=x²eˣ: y'=2xeˣ+x²eˣ=eˣ(2x+x²)=eˣx(2+x)</div><div class='step'>Pattern: d/dx[xⁿeˣ] = eˣ(nxⁿ⁻¹+xⁿ) = xⁿ⁻¹eˣ(n+x)</div><div class='ans'>d/dx[xⁿeˣ] = xⁿ⁻¹·eˣ·(n + x)</div>"},
+];
+var hardD=[
+{q:"<span class='tag tr'>HARD Opt</span> Find the point on the parabola y=x² closest to (2,1/2).",a:"<div class='step'>D²=(x-2)²+(x²-1/2)²</div><div class='step'>d(D²)/dx=2(x-2)+2(x²-1/2)·2x=2(x-2)+4x(x²-1/2)</div><div class='step'>=2x-4+4x³-2x=4x³-4=4(x³-1)=0 → x=1</div><div class='ans'>Closest point: (1,1). Distance = √((1-2)²+(1-1/2)²) = √(1+1/4) = √5/2</div>"},
+{q:"<span class='tag tr'>HARD Related Rates</span> A streetlight is 6m above the ground. A 2m person walks away at 1.5 m/s. How fast does the shadow lengthen?",a:"<div class='step'>By similar triangles: 6/(x+s) = 2/s → 6s = 2(x+s) → 4s=2x → s=x/2</div><div class='step'>ds/dt = (1/2)dx/dt = (1/2)(1.5)</div><div class='ans'>Shadow lengthens at 0.75 m/s</div>"},
+{q:"<span class='tag tr'>HARD Opt</span> A page has area 150 cm². Margins: top/bottom 1cm, left/right 1.5cm. Maximize printed area.",a:"<div class='step'>Page: xy=150. Printed: (x-3)(y-2)</div><div class='step'>A=(x-3)(150/x-2)=150-2x-450/x+6=156-2x-450/x</div><div class='step'>A'=-2+450/x²=0 → x²=225 → x=15; y=10</div><div class='ans'>x=15cm, y=10cm. Max printed area = 12×8 = 96 cm²</div>"},
+{q:"<span class='tag tr'>HARD</span> Use Newton's method once with x₀=1 to approximate root of f(x)=x³-2.",a:"<div class='step'>f(x)=x³-2; f'(x)=3x²</div><div class='step'>x₁ = x₀ - f(x₀)/f'(x₀) = 1 - (1-2)/3 = 1 + 1/3 = 4/3</div><div class='ans'>x₁ = 4/3 ≈ 1.333 (actual ∛2 ≈ 1.260)</div>"},
+];
+
+// ---- FLASHCARDS ----
+var allFC=[
+{c:'limits',t:'L\'Hopital\'s Rule',d:'If lim f/g = 0/0 or ∞/∞:\nlim f(x)/g(x) = lim f\'(x)/g\'(x)\nApply repeatedly if still indeterminate.'},
+{c:'limits',t:'lim(x→0) sin(kx)/x',d:'= k\n(Multiply top and bottom by k: k·[sin(kx)/(kx)]→k·1)'},
+{c:'limits',t:'lim(x→0) (1-cosx)/x²',d:'= 1/2\n(Standard result — memorize this!)'},
+{c:'limits',t:'0·∞ indeterminate form',d:'Rewrite as 0/(1/∞) or ∞/(1/0)\nthen apply L\'Hopital'},
+{c:'limits',t:'1^∞ indeterminate form',d:'Let y = f^g. Take ln: ln y = g·ln(f)\nFind limit of ln y, then answer = e^(that limit)'},
+{c:'limits',t:'Infinity limit shortcut',d:'For rational functions as x→∞:\n- Same degree: ratio of lead coefficients\n- Top degree higher: ±∞\n- Bottom degree higher: 0'},
+{c:'chain',t:'Chain Rule',d:'d/dx[f(g(x))] = f\'(g(x))·g\'(x)\n"derivative of outside × derivative of inside"'},
+{c:'chain',t:'d/dx[(f(x))ⁿ]',d:'= n·(f(x))^(n-1) · f\'(x)\nPower rule + chain rule'},
+{c:'chain',t:'d/dx[e^(f(x))]',d:'= e^(f(x)) · f\'(x)\nThe exponent always comes down as a factor'},
+{c:'chain',t:'d/dx[ln(f(x))]',d:'= f\'(x) / f(x)\nDerivative of inside over inside'},
+{c:'chain',t:'d/dx[sin(f(x))]',d:'= cos(f(x)) · f\'(x)'},
+{c:'chain',t:'Triple Chain: d/dx[f(g(h(x)))]',d:'= f\'(g(h(x))) · g\'(h(x)) · h\'(x)\nWork OUTSIDE IN'},
+{c:'rules',t:'Product Rule',d:'d/dx[uv] = u\'v + uv\'\n"first times derivative of second plus second times derivative of first"'},
+{c:'rules',t:'Quotient Rule',d:'d/dx[u/v] = (u\'v - uv\') / v²\n"lo d hi minus hi d lo over lo squared"'},
+{c:'rules',t:'d/dx[arcsin x]',d:'= 1/√(1-x²)'},
+{c:'rules',t:'d/dx[arctan x]',d:'= 1/(1+x²)'},
+{c:'rules',t:'d/dx[arccos x]',d:'= -1/√(1-x²)\n(negative of arcsin)'},
+{c:'rules',t:'d/dx[aˣ]',d:'= aˣ · ln(a)\nDon\'t forget the ln(a) factor!'},
+{c:'hard',t:'0⁰ form: lim(x→0⁺) xˣ',d:'Let y=xˣ. ln y = x·lnx → 0\nSo y → e⁰ = 1'},
+{c:'hard',t:'lim(1 + a/x)^x as x→∞',d:'= eᵃ\nSpecial case: lim(1+1/n)^n = e'},
+{c:'hard',t:'Newton\'s Method',d:'x₁ = x₀ - f(x₀)/f\'(x₀)\nIteratively approximates roots of f(x)=0'},
+{c:'hard',t:'Logarithmic Differentiation',d:'Take ln both sides, differentiate implicitly.\nBest for: variable exponents, big products/quotients'},
+{c:'hard',t:'d/dx[xⁿeˣ]',d:'= xⁿ⁻¹·eˣ·(n + x)\nUseful pattern for repeated product rule'},
+];
+var curFC=[].concat(allFC),fcIdx=0;
+function updateFC(){if(!curFC.length)return;var c=curFC[fcIdx];document.getElementById('fcTerm').textContent=c.t;document.getElementById('fcDef').textContent=c.d;document.getElementById('fcCount').textContent=(fcIdx+1)+' / '+curFC.length;document.getElementById('fc').classList.remove('flipped');}
+function flipFC(){document.getElementById('fc').classList.toggle('flipped');}
+function nextFC(){fcIdx=(fcIdx+1)%curFC.length;updateFC();}
+function prevFC(){fcIdx=(fcIdx-1+curFC.length)%curFC.length;updateFC();}
+function shuffleFC(){curFC.sort(function(){return Math.random()-0.5;});fcIdx=0;updateFC();}
+function resetFC(){fcIdx=0;updateFC();}
+function filterFC(cat,btn){document.querySelectorAll('#fcFilter .filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');curFC=cat==='all'?[].concat(allFC):allFC.filter(function(c){return c.c===cat;});fcIdx=0;updateFC();}
+
+// ---- QUIZ ----
+var qBank=[
+{t:'limits',q:'lim(x→0) [sin(4x)/(2x)] = ?',opts:['1','2','4','1/2'],ans:1,exp:'= 4/2 · [sin(4x)/(4x)] → 4/2 · 1 = 2'},
+{t:'limits',q:'lim(x→∞) [(5x²+1)/(x²-3)] = ?',opts:['5','1','0','∞'],ans:0,exp:'Same degree: ratio of lead coefficients = 5/1 = 5'},
+{t:'limits',q:'lim(x→0) [(eˣ-1)/x] = ?',opts:['0','e','1','∞'],ans:2,exp:'L\'Hopital: eˣ/1 = 1, or standard limit result'},
+{t:'limits',q:'lim(x→2) [(x²-4)/(x-2)] = ?',opts:['0','2','4','undefined'],ans:2,exp:'Factor: (x-2)(x+2)/(x-2) = x+2. At x=2: 4'},
+{t:'limits',q:'lim(x→0⁺) [ln x] = ?',opts:['0','1','-∞','∞'],ans:2,exp:'ln x → -∞ as x approaches 0 from the right'},
+{t:'chain',q:'d/dx[(3x+1)⁴] = ?',opts:['4(3x+1)³','12(3x+1)³','3(3x+1)³','4(3x+1)⁴'],ans:1,exp:'Chain rule: 4(3x+1)³ · 3 = 12(3x+1)³'},
+{t:'chain',q:'d/dx[e^(x²)] = ?',opts:['e^(x²)','2x','2x·e^(x²)','x²·e^(x²-1)'],ans:2,exp:'Chain: e^(x²) · 2x'},
+{t:'chain',q:'d/dx[ln(sin x)] = ?',opts:['1/sinx','cosx','cotx','tanx'],ans:2,exp:'Chain: (1/sinx)·cosx = cosx/sinx = cot x'},
+{t:'chain',q:'d/dx[sin²(x)] = ?',opts:['2sin(x)','cos²x','sin(2x)','2sinx·tanx'],ans:2,exp:'Chain: 2sinx·cosx = sin(2x)'},
+{t:'deriv',q:'d/dx[arctan x] = ?',opts:['1/√(1-x²)','1/(1+x²)','-1/(1+x²)','1/x'],ans:1,exp:'Standard formula: d/dx[arctan x] = 1/(1+x²)'},
+{t:'deriv',q:'d/dx[x·eˣ] = ?',opts:['eˣ','xeˣ','eˣ+xeˣ','eˣ(x+1)'],ans:3,exp:'Product rule: eˣ + xeˣ = eˣ(1+x) = eˣ(x+1)'},
+{t:'deriv',q:'d/dx[sec x] = ?',opts:['csc x cot x','sec x tan x','-csc²x','tan x'],ans:1,exp:'Standard: d/dx[sec x] = sec x · tan x'},
+{t:'deriv',q:'If f(x)=x⁵-3x³+2, what is f\'\'(x)?',opts:['5x⁴-9x²','20x³-18x','20x³-9x','5x⁴-3x²'],ans:1,exp:'f\'=5x⁴-9x²; f\'\'=20x³-18x'},
+{t:'apps',q:'Horizontal tangent when:',opts:['f\'\'(x)=0','f(x)=0','f\'(x)=0','f is increasing'],ans:2,exp:'Horizontal tangent means slope = 0, so f\'(x) = 0'},
+{t:'apps',q:'Object speeding up when v=−3 and a=−5. True?',opts:['True','False','Cannot determine','Only if x>0'],ans:0,exp:'Speeding up when v and a have SAME sign. Both negative → same sign → speeding up. TRUE.'},
+{t:'apps',q:'L\'Hopital\'s rule applies when the limit gives:',opts:['0·∞ only','0/0 or ∞/∞','any fraction','1^∞ only'],ans:1,exp:'L\'Hopital applies to indeterminate forms 0/0 or ∞/∞ (after rewriting if necessary)'},
+{t:'apps',q:'If f\'\'(x)>0 on an interval, the function is:',opts:['Increasing','Decreasing','Concave up','Concave down'],ans:2,exp:'f\'\'>0 means concave up (cup shape). Remember: positive second derivative = concave UP'},
+];
+var qTopic='all',qAns=0,qCorr=0,qQs=[];
+function setQT(t,btn){qTopic=t;document.querySelectorAll('#tab6 .filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');}
+function startQuiz(){var pool=qTopic==='all'?qBank:qBank.filter(function(q){return q.t===qTopic;});qQs=[].concat(pool).sort(function(){return Math.random()-0.5;}).slice(0,Math.min(10,pool.length));qAns=0;qCorr=0;document.getElementById('qResult').style.display='none';var a=document.getElementById('qArea');a.innerHTML='';qQs.forEach(function(q,i){var c=document.createElement('div');c.className='qc';c.innerHTML='<div class="qq">'+(i+1)+'. '+q.q+'</div><div class="qopts">'+q.opts.map(function(o,j){return'<button class="qopt" onclick="ansQ('+i+','+j+')">'+String.fromCharCode(65+j)+'. '+o+'</button>';}).join('')+'</div><div class="qfb" id="qf'+i+'"></div>';a.appendChild(c);});}
+function ansQ(qi,oi){var q=qQs[qi];var c=document.querySelectorAll('.qc')[qi];c.querySelectorAll('.qopt').forEach(function(o){o.disabled=true;});var fb=document.getElementById('qf'+qi);if(oi===q.ans){c.querySelectorAll('.qopt')[oi].classList.add('correct');fb.textContent='✓ Correct! '+q.exp;fb.className='qfb show correct';qCorr++;}else{c.querySelectorAll('.qopt')[oi].classList.add('wrong');c.querySelectorAll('.qopt')[q.ans].classList.add('correct');fb.textContent='✗ Wrong. '+q.exp;fb.className='qfb show wrong';}qAns++;if(qAns===qQs.length){setTimeout(function(){document.getElementById('qFinal').textContent='Score: '+qCorr+'/'+qQs.length+' ('+Math.round(qCorr/qQs.length*100)+'%)';document.getElementById('qResult').style.display='block';},500);}}
+
+window.onload=function(){
+build('limA',limA);build('limB',limB);build('limC',limC);build('limD',limD);build('limE',limE);build('limF',limF);build('limG',limG);
+build('chainA',chainA);build('chainB',chainB);build('chainC',chainC);build('chainD',chainD);build('chainE',chainE);build('chainF',chainF);
+build('drvA',drvA);build('drvB',drvB);build('drvC',drvC);build('drvD',drvD);build('drvE',drvE);build('drvF',drvF);build('drvG',drvG);
+build('mixA',mixA);build('mixB',mixB);build('mixC',mixC);build('mixD',mixD);
+build('hardA',hardA);build('hardB',hardB);build('hardC',hardC);build('hardD',hardD);
+updateFC();trackProg();
+};
+</script>
+</body>
+</html>
